@@ -8,8 +8,8 @@
 
 **;-)**
 
-**Welcome** to the **API Documentation for Joinup Providers**!
+**Welcome** to the **API Documentation for Joinup Customers**!
 
-Our API allows you to request Joinups (taxis, VTCs and motorcycles) using our API endpoints.
+Our API allows you to create, update or disable employees and to create, update or delete cost centers
 
 We have language bindings in Shell, Python & Java, but it is up to you to use any programming language (Python, Java, Ruby, Javascript, etc). You will find code examples in the right dark area.

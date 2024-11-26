@@ -14,20 +14,9 @@ toc_footers:
 
 includes:
   - introduction
-  - integrations
-  - urls
-  - config
   - auth
-  - signup
-  - validate
-  - profile
-  - zone
-  - service
-  - places
-  - address
-  - pushes
-  - success
-  - errors
+  - employees
+  - cost_centers
 
 search: true
 
