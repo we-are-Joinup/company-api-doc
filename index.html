@@ -784,7 +784,15 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 </tr>
 <tr>
 <td>400</td>
-<td>Bad Request There are several cases. Another request was made less than 1 minute ago. Or the request contains more than 50 employees. Or there is some validation error indicated in the response</td>
+<td>Bad Request indicates that the server would not process the request due to something the server considered to be a client error. The errors are indicated in the response.</td>
+</tr>
+<tr>
+<td>413</td>
+<td>Content Too Large indicates that the request entity was larger than limits defined by server: 50 employees.</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests indicates the client has sent another request in less than 1 minute ago.</td>
 </tr>
 </tbody></table>
 </div><div class='content cost_centers'><h1 id='4-cost-centers'>4. Cost centers</h1><h2 id='4-1-http-request'>4.1 HTTP Request</h2>
@@ -856,7 +864,7 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
   <span class="p">]</span>
 
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span>
-  <span class="s">'https://api.joinupbackend/api/company/employees/'</span><span class="p">,</span>
+  <span class="s">'https://api.joinupbackend/api/company/cost-centers/'</span><span class="p">,</span>
   <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">json_data</span><span class="p">)</span>
 </code></pre></div><div class="highlight"><pre class="highlight java tab-java"><code>
 <span class="kn">import</span> <span class="nn">java.net.http.HttpClient</span><span class="o">;</span>
@@ -869,7 +877,7 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
-        <span class="nc">String</span> <span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.joinupbackend/api/company/employees/"</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.joinupbackend/api/company/cost-centers/"</span><span class="o">;</span>
         <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="s">"beep-beep-beep-beep-beep"</span><span class="o">;</span>
         <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
             <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
@@ -1009,7 +1017,7 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
   <span class="p">]</span>
 
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span>
-  <span class="s">'https://api.joinupbackend/api/company/employees/'</span><span class="p">,</span>
+  <span class="s">'https://api.joinupbackend/api/company/cost-centers/'</span><span class="p">,</span>
   <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">json_data</span><span class="p">)</span>
 </code></pre></div><div class="highlight"><pre class="highlight java tab-java"><code>
 <span class="kn">import</span> <span class="nn">java.net.http.HttpClient</span><span class="o">;</span>
@@ -1022,7 +1030,7 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
-        <span class="nc">String</span> <span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.joinupbackend/api/company/employees/"</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.joinupbackend/api/company/cost-centers/"</span><span class="o">;</span>
         <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="s">"beep-beep-beep-beep-beep"</span><span class="o">;</span>
         <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
             <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
@@ -1105,6 +1113,30 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 <tr>
 <td>400</td>
 <td>Bad Request There are several cases. Another request was made less than 1 minute ago. Or the request contains more than 50 cost centers. Or there is some validation error indicated in the response</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th>Status Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>202</td>
+<td>Accepted indicates that a request has been accepted for processing, but processing has not been completed or may not have started. The request will be proccess in background.</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Bad Request indicates that the server would not process the request due to something the server considered to be a client error. The errors are indicated in the response.</td>
+</tr>
+<tr>
+<td>413</td>
+<td>Content Too Large indicates that the request entity was larger than limits defined by server: 50 cost centers.</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests indicates the client has sent another request in less than 1 minute ago.</td>
 </tr>
 </tbody></table>
 </div>
