@@ -77,7 +77,7 @@ json_data = [
   ]
 
 response = requests.post(
-  'https://api.joinupbackend/api/company/employees/',
+  'https://api.joinupbackend/api/company/cost-centers/',
   headers=headers, json=json_data)
 ```
 
@@ -93,7 +93,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        String url = "https://api.joinupbackend/api/company/employees/";
+        String url = "https://api.joinupbackend/api/company/cost-centers/";
         String token = "beep-beep-beep-beep-beep";
         List<Map<String, Object>> data = List.of(
             Map.of(
@@ -216,7 +216,7 @@ json_data = [
   ]
 
 response = requests.post(
-  'https://api.joinupbackend/api/company/employees/',
+  'https://api.joinupbackend/api/company/cost-centers/',
   headers=headers, json=json_data)
 ```
 
@@ -232,7 +232,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        String url = "https://api.joinupbackend/api/company/employees/";
+        String url = "https://api.joinupbackend/api/company/cost-centers/";
         String token = "beep-beep-beep-beep-beep";
         List<Map<String, Object>> data = List.of(
             Map.of(
@@ -293,3 +293,10 @@ Status Code | Meaning
 ---------- | -------
 202 | Accepted indicates that a request has been accepted for processing, but processing has not been completed or may not have started. The request will be proccess in background.
 400 | Bad Request There are several cases. Another request was made less than 1 minute ago. Or the request contains more than 50 cost centers. Or there is some validation error indicated in the response
+
+Status Code | Meaning
+---------- | -------
+202 | Accepted indicates that a request has been accepted for processing, but processing has not been completed or may not have started. The request will be proccess in background.
+400 | Bad Request indicates that the server would not process the request due to something the server considered to be a client error. The errors are indicated in the response.
+413 | Content Too Large indicates that the request entity was larger than limits defined by server: 50 cost centers.
+429 | Too Many Requests indicates the client has sent another request in less than 1 minute ago.
