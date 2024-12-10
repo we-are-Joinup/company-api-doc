@@ -153,7 +153,7 @@ public class Main {
     }
 ```
 
-Use this paragraph if Joinup system has configured a Company group for your mobility platform 
+Use this section if Joinup system has configured a Company group for your mobility platform
 
 Attribute |  Required | Description
 --------- | ----------- | ----------
@@ -300,7 +300,7 @@ public class Main {
     }
 ```
 
-Use this paragraph if Joinup system has configured a Company group for your mobility platform 
+Use this section if Joinup system has configured a single company for your mobility platform
 
 Attribute |  Required | Description
 --------- | ----------- | ----------
