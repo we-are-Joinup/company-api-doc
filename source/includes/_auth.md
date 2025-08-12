@@ -48,7 +48,7 @@ class Main {
 
 Joinup API expects for the token to be included in all API requests to the server in a header that looks like the following:
 
-`Authorization: beep-beep-beep-beep-beep`
+`Authorization: JWT beep-beep-beep-beep-beep`
 
 <aside class="notice">
 You must replace <code>beep-beep-beep-beep-beep</code> with your token.
