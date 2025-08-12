@@ -325,16 +325,16 @@
             <a href="#3-employees" class="toc-h1 toc-link" data-title="3. Employees">3. Employees</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#3-1-http-request" class="toc-h2 toc-link" data-title="3.1 HTTP Request">3.1 HTTP Request</a>
+                    <a href="#3-1-list-employees" class="toc-h2 toc-link" data-title="3.1 List Employees">3.1 List Employees</a>
                   </li>
                   <li>
-                    <a href="#3-2-configuration-company-group" class="toc-h2 toc-link" data-title="3.2 Configuration Company Group">3.2 Configuration Company Group</a>
+                    <a href="#3-2-manage-employees" class="toc-h2 toc-link" data-title="3.2 Manage Employees">3.2 Manage Employees</a>
                   </li>
                   <li>
-                    <a href="#3-3-configuration-company" class="toc-h2 toc-link" data-title="3.3 Configuration Company">3.3 Configuration Company</a>
+                    <a href="#3-3-get-report" class="toc-h2 toc-link" data-title="3.3 Get report">3.3 Get report</a>
                   </li>
                   <li>
-                    <a href="#3-4-status-codes" class="toc-h2 toc-link" data-title="3.4 Status codes">3.4 Status codes</a>
+                    <a href="#3-4-hook-during-signup-process" class="toc-h2 toc-link" data-title="3.4 Hook during signup process">3.4 Hook during signup process</a>
                   </li>
               </ul>
           </li>
@@ -342,16 +342,13 @@
             <a href="#4-cost-centers" class="toc-h1 toc-link" data-title="4. Cost centers">4. Cost centers</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#4-1-http-request" class="toc-h2 toc-link" data-title="4.1 HTTP Request">4.1 HTTP Request</a>
+                    <a href="#4-1-list-cost-centers" class="toc-h2 toc-link" data-title="4.1 List Cost centers">4.1 List Cost centers</a>
                   </li>
                   <li>
-                    <a href="#4-2-configuration-company-group" class="toc-h2 toc-link" data-title="4.2 Configuration Company Group">4.2 Configuration Company Group</a>
+                    <a href="#4-2-manage-cost-centers" class="toc-h2 toc-link" data-title="4.2 Manage Cost centers">4.2 Manage Cost centers</a>
                   </li>
                   <li>
-                    <a href="#4-3-configuration-company" class="toc-h2 toc-link" data-title="4.3 Configuration Company">4.3 Configuration Company</a>
-                  </li>
-                  <li>
-                    <a href="#4-4-status-codes" class="toc-h2 toc-link" data-title="4.4 Status codes">4.4 Status codes</a>
+                    <a href="#4-3-get-report" class="toc-h2 toc-link" data-title="4.3 Get report">4.3 Get report</a>
                   </li>
               </ul>
           </li>
@@ -376,7 +373,7 @@
 
 <p><strong>Welcome</strong> to the <strong>API Documentation for Joinup Customers</strong>!</p>
 
-<p>Our API allows you to create, update or disable employees and to create, update or delete cost centers</p>
+<p>Our API allows you to list, create, update or disable employees and to list, create, update or delete cost centers</p>
 
 <p>We have language bindings in Shell, Python &amp; Java, but it is up to you to use any programming language (Python, Java, Ruby, Javascript, etc). You will find code examples in the right dark area.</p>
 </div><div class='content auth'><h1 id='2-authentication-amp-authorization'>2. Authentication &amp; Authorization</h1>
@@ -422,12 +419,559 @@
 
 <p>Joinup API expects for the token to be included in all API requests to the server in a header that looks like the following:</p>
 
-<p><code>Authorization: beep-beep-beep-beep-beep</code></p>
+<p><code>Authorization: JWT beep-beep-beep-beep-beep</code></p>
 
 <aside class="notice">
 You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 </aside>
-</div><div class='content employees'><h1 id='3-employees'>3. Employees</h1><h2 id='3-1-http-request'>3.1 HTTP Request</h2>
+</div><div class='content employees'><h1 id='3-employees'>3. Employees</h1><h2 id='3-1-list-employees'>3.1 List Employees</h2><h3 id='3-1-1-http-request'>3.1.1 HTTP Request</h3>
+<p><code>GET https://api.joinupbackend/api/company/employees/</code></p>
+
+<p>This endpoint lists employees in a paginated format.</p>
+
+<p>This endpoint can be called 1 time per second.</p>
+<h3 id='3-1-2-case-company-group'>3.1.2 Case Company Group</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://localhost:8000/api/company/employees/"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: JWT beep-beep-beep-beep-beep"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'JWT beep-beep-beep-beep-beep'</span><span class="p">,</span>
+    <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://localhost:8000/api/company/employees/'</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight java tab-java"><code><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpResponse</span><span class="o">;</span>
+
+<span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newHttpClient</span><span class="o">();</span>
+
+<span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">uri</span><span class="o">(</span><span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"https://localhost:8000/api/company/employees/"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">GET</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"JWT beep-beep-beep-beep-beep"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">());</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">4062</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.joinupbackend/api/company/employees/?page=4"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.joinupbackend/api/company/employees/?page=2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">14518</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"base_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"enabled_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-10-05T08:19:32.312058Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"disabled_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"employee_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"cost_center"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"service_reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"27: bar"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dni"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"supervisor_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"extra_text_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"extra_text_2"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"extra_text_3"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"management"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"section"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"pep_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"layer"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"extra_field_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"extra_field_2"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"extra_field_3"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"company_cif"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AXXYYZZUU"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"company_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test company"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<aside class="notice">
+Use this section if Joinup system has configured a Company group for your mobility platform
+</aside>
+<h4 id='3-1-2-1-query-parameters'>3.1.2.1 Query Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page_size</td>
+<td>Integer</td>
+<td>No</td>
+<td>Default: 10. The number of employees returned per page. Maximun value: 100</td>
+</tr>
+<tr>
+<td>page</td>
+<td>Integer</td>
+<td>No</td>
+<td>Default: 1. The page number to retrieve</td>
+</tr>
+<tr>
+<td>ordering</td>
+<td>String</td>
+<td>No</td>
+<td>Default id. Specifies the sorting order of the returned results, by one or more fields. Possible values: id, enabled, enabled_date,  disabled_date, company_name, company_cif (prefix with - for descending order)</td>
+</tr>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>No</td>
+<td>Filters the results by the specified employee ID</td>
+</tr>
+<tr>
+<td>enabled</td>
+<td>Boolean</td>
+<td>No</td>
+<td>Filters employees by their enabled status. Accepts true or false</td>
+</tr>
+<tr>
+<td>enabled_date__gte</td>
+<td>String  (datetime in ISO 8601 format, UTC timezone)</td>
+<td>No</td>
+<td>Filters employees enabled on or after the specified datetime</td>
+</tr>
+<tr>
+<td>enabled_date__lt</td>
+<td>String  (datetime in ISO 8601 format, UTC timezone)</td>
+<td>No</td>
+<td>Filters employees enabled before the specified datetime</td>
+</tr>
+<tr>
+<td>disabled_date__gte</td>
+<td>String  (datetime in ISO 8601 format, UTC timezone)</td>
+<td>No</td>
+<td>Filters employees disabled on or after the specified datetime</td>
+</tr>
+<tr>
+<td>enabled_date__lt</td>
+<td>String  (datetime in ISO 8601 format, UTC timezone)</td>
+<td>No</td>
+<td>Filters employees disabled before the specified datetime</td>
+</tr>
+<tr>
+<td>company_name</td>
+<td>String</td>
+<td>No</td>
+<td>Filters employees whose company name contains the specified value</td>
+</tr>
+<tr>
+<td>company_cif</td>
+<td>String</td>
+<td>No</td>
+<td>Filters employees whose company CIF contains the specified value</td>
+</tr>
+</tbody></table>
+<h4 id='3-1-2-2-attributes-response'>3.1.2.2 Attributes response</h4>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>Unique identifier of the employee</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>Full name of the employee</td>
+</tr>
+<tr>
+<td>base_email</td>
+<td>String</td>
+<td>Primary email address of the employee</td>
+</tr>
+<tr>
+<td>enabled</td>
+<td>Boolean</td>
+<td>Boolean indicating if the employee is currently enabled (true or false)</td>
+</tr>
+<tr>
+<td>enabled_date</td>
+<td>String  (datetime in ISO 8601 format, UTC timezone)</td>
+<td>Date and time when the employee was enabled (ISO 8601 UTC)</td>
+</tr>
+<tr>
+<td>disabled_date</td>
+<td>String  (datetime in ISO 8601 format, UTC timezone)</td>
+<td>Date and time when the employee was disabled (ISO 8601 UTC)</td>
+</tr>
+<tr>
+<td>employee_id</td>
+<td>String</td>
+<td>Internal identification code or number used by the company to identify the employee</td>
+</tr>
+<tr>
+<td>cost_center</td>
+<td>String</td>
+<td>Default cost center associated with the employee</td>
+</tr>
+<tr>
+<td>service_reason</td>
+<td>String</td>
+<td>Default service reason associated with the employee. Format: &lt;<ID: TEXT>&gt;</td>
+</tr>
+<tr>
+<td>dni</td>
+<td>String</td>
+<td>National identification number</td>
+</tr>
+<tr>
+<td>supervisor_email</td>
+<td>String</td>
+<td>Email address of the employee’s supervisor</td>
+</tr>
+<tr>
+<td>extra_text_1</td>
+<td>String</td>
+<td>Default additional text field 1 for custom use</td>
+</tr>
+<tr>
+<td>extra_text_2</td>
+<td>String</td>
+<td>Default additional text field 2 for custom use</td>
+</tr>
+<tr>
+<td>extra_text_3</td>
+<td>String</td>
+<td>Default additional text field 3 for custom use</td>
+</tr>
+<tr>
+<td>management</td>
+<td>String</td>
+<td>Management unit or department to which the employee belongs</td>
+</tr>
+<tr>
+<td>section</td>
+<td>String</td>
+<td>Section or subdivision within the management unit</td>
+</tr>
+<tr>
+<td>pep_code</td>
+<td>String</td>
+<td>Pep code or officine code</td>
+</tr>
+<tr>
+<td>layer</td>
+<td>String</td>
+<td>Organizational layer or level of the employee</td>
+</tr>
+<tr>
+<td>extra_field_1</td>
+<td>String</td>
+<td>Additional custom field 1</td>
+</tr>
+<tr>
+<td>extra_field_2</td>
+<td>String</td>
+<td>Additional custom field 2</td>
+</tr>
+<tr>
+<td>extra_field_3</td>
+<td>String</td>
+<td>Additional custom field 3</td>
+</tr>
+<tr>
+<td>company_name</td>
+<td>String</td>
+<td>Name of the company employing the employee</td>
+</tr>
+<tr>
+<td>company_cif</td>
+<td>String</td>
+<td>Company tax identification code (CIF)</td>
+</tr>
+</tbody></table>
+<h3 id='3-1-3-case-single-company'>3.1.3 Case Single Company</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://localhost:8000/api/company/employees/"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: JWT beep-beep-beep-beep-beep"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'JWT beep-beep-beep-beep-beep'</span><span class="p">,</span>
+    <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://localhost:8000/api/company/employees/'</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight java tab-java"><code><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpResponse</span><span class="o">;</span>
+
+<span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newHttpClient</span><span class="o">();</span>
+
+<span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">uri</span><span class="o">(</span><span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"https://localhost:8000/api/company/employees/"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">GET</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"JWT beep-beep-beep-beep-beep"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">());</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">4062</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.joinupbackend/api/company/employees/?page=4"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.joinupbackend/api/company/employees/?page=2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">14518</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"base_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"enabled_date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-10-05T08:19:32.312058Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"disabled_date"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"employee_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"cost_center"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"service_reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"27: bar"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"dni"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"supervisor_email"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"extra_text_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"extra_text_2"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"extra_text_3"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"management"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"section"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"pep_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"layer"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"extra_field_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"extra_field_2"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"extra_field_3"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<aside class="notice">
+Use this section if Joinup system has configured a single company for your mobility platform
+</aside>
+<h4 id='3-1-3-1-query-parameters'>3.1.3.1 Query Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page_size</td>
+<td>Integer</td>
+<td>No</td>
+<td>Default: 10. The number of employees returned per page. Maximun value: 100</td>
+</tr>
+<tr>
+<td>page</td>
+<td>Integer</td>
+<td>No</td>
+<td>Default: 1. The page number to retrieve</td>
+</tr>
+<tr>
+<td>ordering</td>
+<td>String</td>
+<td>No</td>
+<td>Default id. Specifies the sorting order of the returned results, by one or more fields. Possible values: id, enabled, enabled_date,  disabled_date, company_name, company_cif (prefix with - for descending order)</td>
+</tr>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>No</td>
+<td>Filters the results by the specified employee ID</td>
+</tr>
+<tr>
+<td>enabled</td>
+<td>Boolean</td>
+<td>No</td>
+<td>Filters employees by their enabled status. Accepts true or false</td>
+</tr>
+<tr>
+<td>enabled_date__gte</td>
+<td>String  (datetime in ISO 8601 format, UTC timezone)</td>
+<td>No</td>
+<td>Filters employees enabled on or after the specified datetime</td>
+</tr>
+<tr>
+<td>enabled_date__lt</td>
+<td>String  (datetime in ISO 8601 format, UTC timezone)</td>
+<td>No</td>
+<td>Filters employees enabled before the specified datetime</td>
+</tr>
+<tr>
+<td>disabled_date__gte</td>
+<td>String  (datetime in ISO 8601 format, UTC timezone)</td>
+<td>No</td>
+<td>Filters employees disabled on or after the specified datetime</td>
+</tr>
+<tr>
+<td>enabled_date__lt</td>
+<td>String  (datetime in ISO 8601 format, UTC timezone)</td>
+<td>No</td>
+<td>Filters employees disabled before the specified datetime</td>
+</tr>
+</tbody></table>
+<h4 id='3-1-3-2-attributes-response'>3.1.3.2 Attributes response</h4>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>Unique identifier of the employee</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>Full name of the employee</td>
+</tr>
+<tr>
+<td>base_email</td>
+<td>String</td>
+<td>Primary email address of the employee</td>
+</tr>
+<tr>
+<td>enabled</td>
+<td>Boolean</td>
+<td>Boolean indicating if the employee is currently enabled (true or false)</td>
+</tr>
+<tr>
+<td>enabled_date</td>
+<td>String  (datetime in ISO 8601 format, UTC timezone)</td>
+<td>Date and time when the employee was enabled (ISO 8601 UTC)</td>
+</tr>
+<tr>
+<td>disabled_date</td>
+<td>String  (datetime in ISO 8601 format, UTC timezone)</td>
+<td>Date and time when the employee was disabled (ISO 8601 UTC)</td>
+</tr>
+<tr>
+<td>employee_id</td>
+<td>String</td>
+<td>Internal identification code or number used by the company to identify the employee</td>
+</tr>
+<tr>
+<td>cost_center</td>
+<td>String</td>
+<td>Default cost center associated with the employee</td>
+</tr>
+<tr>
+<td>service_reason</td>
+<td>String</td>
+<td>Default service reason associated with the employee. Format: &lt;<ID: TEXT>&gt;</td>
+</tr>
+<tr>
+<td>dni</td>
+<td>String</td>
+<td>National identification number</td>
+</tr>
+<tr>
+<td>supervisor_email</td>
+<td>String</td>
+<td>Email address of the employee’s supervisor</td>
+</tr>
+<tr>
+<td>extra_text_1</td>
+<td>String</td>
+<td>Default additional text field 1 for custom use</td>
+</tr>
+<tr>
+<td>extra_text_2</td>
+<td>String</td>
+<td>Default additional text field 2 for custom use</td>
+</tr>
+<tr>
+<td>extra_text_3</td>
+<td>String</td>
+<td>Default additional text field 3 for custom use</td>
+</tr>
+<tr>
+<td>management</td>
+<td>String</td>
+<td>Management unit or department to which the employee belongs</td>
+</tr>
+<tr>
+<td>section</td>
+<td>String</td>
+<td>Section or subdivision within the management unit</td>
+</tr>
+<tr>
+<td>pep_code</td>
+<td>String</td>
+<td>Pep code or officine code</td>
+</tr>
+<tr>
+<td>layer</td>
+<td>String</td>
+<td>Organizational layer or level of the employee</td>
+</tr>
+<tr>
+<td>extra_field_1</td>
+<td>String</td>
+<td>Additional custom field 1</td>
+</tr>
+<tr>
+<td>extra_field_2</td>
+<td>String</td>
+<td>Additional custom field 2</td>
+</tr>
+<tr>
+<td>extra_field_3</td>
+<td>String</td>
+<td>Additional custom field 3</td>
+</tr>
+</tbody></table>
+<h3 id='3-1-4-status-codes'>3.1.4 Status codes</h3>
+<table><thead>
+<tr>
+<th>Status Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>OK. The results are returned</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Bad Request indicates that the server would not process the request due to something the server considered to be a client error. The errors are indicated in the response.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized indicates the client must authenticate to access the resource.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden means the client is authenticated but does not have permission to access the resource.</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests indicates the client has sent another request in less than 1 second ago.</td>
+</tr>
+</tbody></table>
+<h2 id='3-2-manage-employees'>3.2 Manage Employees</h2><h3 id='3-2-1-http-request'>3.2.1 HTTP Request</h3>
 <p><code>POST https://api.joinupbackend/api/company/employees/</code></p>
 
 <p>This endpoint creates, updates or disables employees. </p>
@@ -436,9 +980,9 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 
 <p>This endpoint can be called 1 time per minute.</p>
 
-<p>This endpoint (in production environment) sends a report with the result. It is possible add a customer email.</p>
-<h2 id='3-2-configuration-company-group'>3.2 Configuration Company Group</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.joinupbackend/api/company/employees/"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: beep-beep-beep-beep-beep"</span> <span class="se">\</span>
+<p>This endpoint (in production environment) can send a report with the result. It is possible add a customer email. This report can be accessed via API.</p>
+<h3 id='3-2-2-case-company-group'>3.2.2 Case Company Group</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.joinupbackend/api/company/employees/"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: JWT beep-beep-beep-beep-beep"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   <span class="nt">-X</span> POST <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'[
@@ -470,7 +1014,7 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 </code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'beep-beep-beep-beep-beep'</span><span class="p">,</span>
+    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'JWT beep-beep-beep-beep-beep'</span><span class="p">,</span>
     <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
 <span class="p">}</span>
 
@@ -516,7 +1060,7 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
         <span class="nc">String</span> <span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.joinupbackend/api/company/employees/"</span><span class="o">;</span>
-        <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="s">"beep-beep-beep-beep-beep"</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="s">"JWT beep-beep-beep-beep-beep"</span><span class="o">;</span>
         <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
             <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
                 <span class="s">"base_email"</span><span class="o">,</span> <span class="s">"test@example.com"</span><span class="o">,</span>
@@ -565,10 +1109,13 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bulk task started!"</span><span class="w">
+      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bulk task started!"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"request_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6899d4573a7e8f5ac4bc3ad3"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Use this section if Joinup system has configured a Company group for your mobility platform</p>
+<aside class="notice">
+Use this section if Joinup system has configured a Company group for your mobility platform
+</aside>
 
 <table><thead>
 <tr>
@@ -610,15 +1157,15 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 <tr>
 <td>other fields</td>
 <td>No</td>
-<td>cost_center, service_reason, management, section etc. There are a lot of employee fields. Please if you need to save more info contact the Joinup team. We will indicate what is the best field for your case.</td>
+<td>cost_center, service_reason, management, section etc. Employees have various fields available according to each client’s needs. It is not necessary to use all of them. Only the fields strictly required to provide the service should be used. Please if you need to save more info contact the Joinup team. We will indicate what is the best field for your case.</td>
 </tr>
 </tbody></table>
 
 <aside class="notice">
   It is possible to send company_name and company_cif. In this case, firstly will search an existing company for CIF, secondly will search an existing company for name. And if there is not any company, our system will create a company with this name and with this CIF belong to your company group
 </aside>
-<h2 id='3-3-configuration-company'>3.3 Configuration Company</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.joinupbackend/api/company/employees/"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: beep-beep-beep-beep-beep"</span> <span class="se">\</span>
+<h3 id='3-2-3-case-single-company'>3.2.3 Case Single Company</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.joinupbackend/api/company/employees/"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: JWT beep-beep-beep-beep-beep"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   <span class="nt">-X</span> POST <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'[
@@ -646,7 +1193,7 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 </code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'beep-beep-beep-beep-beep'</span><span class="p">,</span>
+    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'JWT beep-beep-beep-beep-beep'</span><span class="p">,</span>
     <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
 <span class="p">}</span>
 
@@ -688,7 +1235,7 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
         <span class="nc">String</span> <span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.joinupbackend/api/company/employees/"</span><span class="o">;</span>
-        <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="s">"beep-beep-beep-beep-beep"</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="s">"JWT beep-beep-beep-beep-beep"</span><span class="o">;</span>
         <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
             <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
                 <span class="s">"base_email"</span><span class="o">,</span> <span class="s">"test@example.com"</span><span class="o">,</span>
@@ -733,10 +1280,13 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bulk task started!"</span><span class="w">
+      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bulk task started!"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"request_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6899d4573a7e8f5ac4bc3ad3"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Use this section if Joinup system has configured a single company for your mobility platform</p>
+<aside class="notice">
+Use this section if Joinup system has configured a single company for your mobility platform
+</aside>
 
 <table><thead>
 <tr>
@@ -768,10 +1318,10 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 <tr>
 <td>other fields</td>
 <td>No</td>
-<td>cost_center, service_reason, management, section etc. There are a lot of employee fields. Please if you need save more info contact with Joinup team. We will indicate what is the best field for your case.</td>
+<td>cost_center, service_reason, management, section etc. Employees have various fields available according to each client’s needs. It is not necessary to use all of them. Only the fields strictly required to provide the service should be used. If you need to save more info, please contact the Joinup team. We will indicate what is the best field for your case.</td>
 </tr>
 </tbody></table>
-<h2 id='3-4-status-codes'>3.4 Status codes</h2>
+<h3 id='3-2-4-status-codes'>3.2.4 Status codes</h3>
 <table><thead>
 <tr>
 <th>Status Code</th>
@@ -787,6 +1337,14 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 <td>Bad Request indicates that the server would not process the request due to something the server considered to be a client error. The errors are indicated in the response.</td>
 </tr>
 <tr>
+<td>401</td>
+<td>Unauthorized indicates the client must authenticate to access the resource.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden means the client is authenticated but does not have permission to access the resource.</td>
+</tr>
+<tr>
 <td>413</td>
 <td>Content Too Large indicates that the request entity was larger than limits defined by server: 50 employees.</td>
 </tr>
@@ -795,7 +1353,626 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 <td>Too Many Requests indicates the client has sent another request in less than 1 minute ago.</td>
 </tr>
 </tbody></table>
-</div><div class='content cost_centers'><h1 id='4-cost-centers'>4. Cost centers</h1><h2 id='4-1-http-request'>4.1 HTTP Request</h2>
+<h2 id='3-3-get-report'>3.3 Get report</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.joinupbackend/api/company/employees/check-request/6899d4573a7e8f5ac4bc3ad3/"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: JWT beep-beep-beep-beep-beep"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'JWT beep-beep-beep-beep-beep'</span><span class="p">,</span>
+    <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="s">'https://api.joinupbackend/api/company/employees/check-request/6899d4573a7e8f5ac4bc3ad3/'</span><span class="p">,</span>
+    <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight java tab-java"><code><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpResponse</span><span class="o">;</span>
+
+<span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newHttpClient</span><span class="o">();</span>
+
+<span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">uri</span><span class="o">(</span><span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"https://api.joinupbackend/api/company/employees/check-request/6899d4573a7e8f5ac4bc3ad3/"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">GET</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"JWT beep-beep-beep-beep-beep"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">());</span>
+
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-08-11T11:30:31.627000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6899d4573a7e8f5ac4bc3ad3"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Or when the task is finished:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"finished"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-08-11T11:30:31.627000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"company_created"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"NAME_OR_CIF1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"NAME_OR_CIF2"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"NAME_OR_CIF3"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"offboarding"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"test1@example.com"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"test6@example.com"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ERROR MESSAGE"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"onboarding"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"test2@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"test3@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"test4@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"test5@example.com"</span><span class="p">,</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"test6@example.com"</span><span class="p">,</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6899d4573a7e8f5ac4bc3ad3"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='3-3-1-http-request'>3.3.1 HTTP Request</h3>
+<p><code>GET https://api.joinupbackend/api/company/employees/check-request/&lt;ID&gt;/</code></p>
+
+<p>This endpoint retrieves the report created after run manage employees. </p>
+
+<p>This endpoint can be called 1 time per minute.</p>
+
+<p>The id used will be the request_id returned in the request to manage employees</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>String</td>
+<td>pending: Request is still being processed, finished: request has been completed</td>
+</tr>
+<tr>
+<td>created</td>
+<td>String  (datetime in ISO 8601 format, UTC timezone)</td>
+<td>Date when the request was made</td>
+</tr>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>Identifier of the request</td>
+</tr>
+<tr>
+<td>company_created</td>
+<td>List[str]</td>
+<td>Only for company group administrators. company names (or CIFs) list created in the request</td>
+</tr>
+<tr>
+<td>offboarding</td>
+<td>Object</td>
+<td>Report of offboarding employees</td>
+</tr>
+<tr>
+<td>onboarding</td>
+<td>Object</td>
+<td>Report of onboarding employees</td>
+</tr>
+<tr>
+<td>updated</td>
+<td>Object</td>
+<td>Report of updated employees</td>
+</tr>
+</tbody></table>
+<h2 id='3-4-hook-during-signup-process'>3.4 Hook during signup process</h2>
+<aside class="notice">
+To use this hook it is necessary that the client API meets all the requirements
+</aside>
+
+<p>Due to internal security policies, it may not be desirable to provide employee information until they actually start using our App. For this purpose, the Joinup API has a hook to get employee info during signup process.</p>
+
+<p>In other words, due to company or group security policies, we might avoid using the “Manage Employees” endpoint with the operation field set to onboarding.</p>
+
+<p>We have an alternative: provide this information at the moment the employee is signed.</p>
+
+<p>Our system will be configured so that when a user registers in the Joinup App, if their email domain matches one of the domains already registered for that company or group, the system will make a request to a client API to retrieve the employee information.</p>
+<h3 id='3-4-1-case-company-group'>3.4.1 Case Company Group:</h3>
+<aside class="notice">
+Use this section if Joinup system has configured a Company group for your mobility platform
+</aside>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.clientbackend/api/company/employees/"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: buzz-buzz-buzz-buzz-buzz"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-X</span> POST <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{"email": "test1@example.com"}'</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'buzz-buzz-buzz-buzz-buzz'</span><span class="p">,</span>
+    <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">json_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'email'</span><span class="p">:</span> <span class="s">'test1@example.com'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.clientbackend/api/company/employees/'</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">json_data</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight java tab-java"><code><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpRequest.BodyPublishers</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpResponse</span><span class="o">;</span>
+
+<span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newHttpClient</span><span class="o">();</span>
+
+<span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">uri</span><span class="o">(</span><span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"https://api.clientbackend/api/company/employees/"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">POST</span><span class="o">(</span><span class="nc">BodyPublishers</span><span class="o">.</span><span class="na">ofString</span><span class="o">(</span><span class="s">"{\"email\": \"test1@example.com\"}"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"buzz-buzz-buzz-buzz-buzz"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">());</span>
+
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FULL NAME"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test1@example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"company_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example 1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"company_cif"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AZZYYZZUU"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cost_center"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CC1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"extra_text_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Project"</span><span class="p">,</span><span class="w">
+  </span><span class="err">...</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Definition</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>URL</td>
+<td>It is defined by the client</td>
+</tr>
+<tr>
+<td>Authentication</td>
+<td>This will be done exclusively with the Authorization header. Using a token without refresh. If necessary, it can be changed as many times as necessary throughout the year.</td>
+</tr>
+<tr>
+<td>Content Type</td>
+<td>application/json</td>
+</tr>
+<tr>
+<td>Method</td>
+<td>POST</td>
+</tr>
+<tr>
+<td>Payload</td>
+<td>{&quot;email&quot;: &quot;test1@example.com&quot;}</td>
+</tr>
+<tr>
+<td>Status code</td>
+<td>400, 401, 403, 404 or 200</td>
+</tr>
+<tr>
+<td>Body for 400, 401, 403 and 404 status</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>Body for 200 status</td>
+<td>Complete list of all attributes that the response can contain: name, email, employee_id, cost_center, service_reason, dni, supervisor_email, extra_text_1, extra_text_2, extra_text_3, management, section, pep_code, layer, extra_field_1, extra_field_2, extra_field_3, company_name, company_cif</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+  It is possible to receive company_name and company_cif. In this case, firstly will search an existing company for CIF, secondly will search an existing company for name. And if there is not any company, our system will create a company with this name and with this CIF belong to your company group
+</aside>
+<h3 id='3-4-2-case-single-company'>3.4.2 Case Single Company:</h3>
+<aside class="notice">
+Use this section if Joinup system has configured a single company for your mobility platform
+</aside>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.clientbackend/api/company/employees/"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: buzz-buzz-buzz-buzz-buzz"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-X</span> POST <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{"email": "test1@example.com"}'</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'buzz-buzz-buzz-buzz-buzz'</span><span class="p">,</span>
+    <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">json_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'email'</span><span class="p">:</span> <span class="s">'test1@example.com'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">'https://api.clientbackend/api/company/employees/'</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">json_data</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight java tab-java"><code><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpRequest.BodyPublishers</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpResponse</span><span class="o">;</span>
+
+<span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newHttpClient</span><span class="o">();</span>
+
+<span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">uri</span><span class="o">(</span><span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"https://api.clientbackend/api/company/employees/"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">POST</span><span class="o">(</span><span class="nc">BodyPublishers</span><span class="o">.</span><span class="na">ofString</span><span class="o">(</span><span class="s">"{\"email\": \"test1@example.com\"}"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"buzz-buzz-buzz-buzz-buzz"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">());</span>
+
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FULL NAME"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test1@example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cost_center"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CC1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"extra_text_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Project"</span><span class="p">,</span><span class="w">
+  </span><span class="err">...</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<table><thead>
+<tr>
+<th>Definition</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>URL</td>
+<td>It is defined by the client</td>
+</tr>
+<tr>
+<td>Authentication</td>
+<td>This will be done exclusively with the Authorization header. Using a token without refresh. If necessary, it can be changed as many times as necessary throughout the year.</td>
+</tr>
+<tr>
+<td>Content Type</td>
+<td>application/json</td>
+</tr>
+<tr>
+<td>Method</td>
+<td>POST</td>
+</tr>
+<tr>
+<td>Payload</td>
+<td>{&quot;email&quot;: &quot;test1@example.com&quot;}</td>
+</tr>
+<tr>
+<td>Status code</td>
+<td>400, 401, 403, 404, or 200</td>
+</tr>
+<tr>
+<td>Body for 401 and 403 status</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>Body for 200 status</td>
+<td>Complete list of all attributes that the response can contain: name, email, employee_id, cost_center, service_reason, dni, supervisor_email, extra_text_1, extra_text_2, extra_text_3, management, section, pep_code, layer, extra_field_1, extra_field_2, extra_field_3</td>
+</tr>
+</tbody></table>
+<h3 id='3-4-3-status-codes'>3.4.3 Status codes</h3>
+<table><thead>
+<tr>
+<th>Status Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>Ok returns the employee information</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Bad Request indicates that the server would not process the request due to something the server considered to be a client error. E.g.: Payload without email</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized indicates the client must authenticate to access the resource.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden means the client is authenticated but does not have permission to access the resource.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found employee not found</td>
+</tr>
+</tbody></table>
+</div><div class='content cost_centers'><h1 id='4-cost-centers'>4. Cost centers</h1><h2 id='4-1-list-cost-centers'>4.1 List Cost centers</h2><h3 id='3-1-1-http-request'>3.1.1 HTTP Request</h3>
+<p><code>GET https://api.joinupbackend/api/company/cost-centers/</code></p>
+
+<p>This endpoint lists cost centers in a paginated format.</p>
+
+<p>This endpoint can be called 1 time per second.</p>
+<h3 id='3-1-2-case-company-group'>3.1.2 Case Company Group</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://localhost:8000/api/company/cost-centers/"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: JWT beep-beep-beep-beep-beep"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'JWT beep-beep-beep-beep-beep'</span><span class="p">,</span>
+    <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://localhost:8000/api/company/cost-centers/'</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight java tab-java"><code><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpResponse</span><span class="o">;</span>
+
+<span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newHttpClient</span><span class="o">();</span>
+
+<span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">uri</span><span class="o">(</span><span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"https://localhost:8000/api/company/cost-centers/"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">GET</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"JWT beep-beep-beep-beep-beep"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">());</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.joinupbackend/api/company/cost-centers/?page=3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.joinupbackend/api/company/cost-centers/"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">116220</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"company_cif"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AXXYYZZUU"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"company_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test company"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<aside class="notice">
+Use this section if Joinup system has configured a Company group for your mobility platform
+</aside>
+<h4 id='3-1-2-1-query-parameters'>3.1.2.1 Query Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page_size</td>
+<td>Integer</td>
+<td>No</td>
+<td>Default: 10. The number of cost centers returned per page. Maximun value: 100</td>
+</tr>
+<tr>
+<td>page</td>
+<td>Integer</td>
+<td>No</td>
+<td>Default: 1. The page number to retrieve</td>
+</tr>
+<tr>
+<td>ordering</td>
+<td>String</td>
+<td>No</td>
+<td>Default id. Specifies the sorting order of the returned results, by one or more fields. Possible values: id, name, company_name, company_cif (prefix with - for descending order)</td>
+</tr>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>No</td>
+<td>Filters the results by the specified cost center ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>No</td>
+<td>Filters cost centers by their name. Accepts true or false</td>
+</tr>
+<tr>
+<td>company_name</td>
+<td>String</td>
+<td>No</td>
+<td>Filters cost centers whose company name contains the specified value. Only if your company group does not share the cost centers.</td>
+</tr>
+<tr>
+<td>company_cif</td>
+<td>String</td>
+<td>No</td>
+<td>Filters cost centers whose company CIF contains the specified value. Only if your company group does not share the cost centers.</td>
+</tr>
+</tbody></table>
+<h4 id='3-1-2-2-attributes-response'>3.1.2.2 Attributes response</h4>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>Unique identifier of the cost-centers</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>Name of the cost center</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+  company_name and company_cif are not returned cost centers are shared by all companies.
+</aside>
+<h3 id='3-1-3-case-single-company'>3.1.3 Case Single Company</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://localhost:8000/api/company/cost-centers/"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: JWT beep-beep-beep-beep-beep"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'JWT beep-beep-beep-beep-beep'</span><span class="p">,</span>
+    <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'https://localhost:8000/api/company/cost-centers/'</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight java tab-java"><code><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpResponse</span><span class="o">;</span>
+
+<span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newHttpClient</span><span class="o">();</span>
+
+<span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">uri</span><span class="o">(</span><span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"https://localhost:8000/api/company/cost-centers/"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">GET</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"JWT beep-beep-beep-beep-beep"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">());</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.joinupbackend/api/company/cost-centers/?page=3"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"previous"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://api.joinupbackend/api/company/cost-centers/"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">116220</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<aside class="notice">
+Use this section if Joinup system has configured a single company for your mobility platform
+</aside>
+<h4 id='3-1-3-1-query-parameters'>3.1.3.1 Query Parameters</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page_size</td>
+<td>Integer</td>
+<td>No</td>
+<td>Default: 10. The number of cost centers returned per page. Maximun value: 100</td>
+</tr>
+<tr>
+<td>page</td>
+<td>Integer</td>
+<td>No</td>
+<td>Default: 1. The page number to retrieve</td>
+</tr>
+<tr>
+<td>ordering</td>
+<td>String</td>
+<td>No</td>
+<td>Default id. Specifies the sorting order of the returned results, by one or more fields. Possible values: id and name (prefix with - for descending order)</td>
+</tr>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>No</td>
+<td>Filters the results by the specified cost center ID</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>No</td>
+<td>Filters cost centers by their name. Accepts true or false</td>
+</tr>
+</tbody></table>
+<h4 id='3-1-3-2-attributes-response'>3.1.3.2 Attributes response</h4>
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>Unique identifier of the cost center</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>Name of the cost center</td>
+</tr>
+</tbody></table>
+<h3 id='3-1-4-status-codes'>3.1.4 Status codes</h3>
+<table><thead>
+<tr>
+<th>Status Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td>OK. The results are returned</td>
+</tr>
+<tr>
+<td>400</td>
+<td>Bad Request indicates that the server would not process the request due to something the server considered to be a client error. The errors are indicated in the response.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized indicates the client must authenticate to access the resource.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden means the client is authenticated but does not have permission to access the resource.</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests indicates the client has sent another request in less than 1 second ago.</td>
+</tr>
+</tbody></table>
+<h2 id='4-2-manage-cost-centers'>4.2 Manage Cost centers</h2><h3 id='4-2-1-http-request'>4.2.1 HTTP Request</h3>
 <p><code>POST https://api.joinupbackend/api/company/cost-centers/</code></p>
 
 <p>This endpoint creates, updates or deletes cost centers. </p>
@@ -804,9 +1981,9 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 
 <p>This endpoint can be called 1 time per minute.</p>
 
-<p>This endpoint (in production environment) sends a report with the result. It is possible add a customer email.</p>
-<h2 id='4-2-configuration-company-group'>4.2 Configuration Company Group</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.joinupbackend/api/company/cost-centers/"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: beep-beep-beep-beep-beep"</span> <span class="se">\</span>
+<p>This endpoint (in production environment) can send a report with the result. It is possible add a customer email. This report can be accessed via API.</p>
+<h3 id='4-2-2-configuration-company-group'>4.2.2 Configuration Company Group</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.joinupbackend/api/company/cost-centers/"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: JWT beep-beep-beep-beep-beep"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   <span class="nt">-X</span> POST <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'[
@@ -835,7 +2012,7 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 </code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'beep-beep-beep-beep-beep'</span><span class="p">,</span>
+    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'JWT beep-beep-beep-beep-beep'</span><span class="p">,</span>
     <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
 <span class="p">}</span>
 
@@ -878,7 +2055,7 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
         <span class="nc">String</span> <span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.joinupbackend/api/company/cost-centers/"</span><span class="o">;</span>
-        <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="s">"beep-beep-beep-beep-beep"</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="s">"JWT beep-beep-beep-beep-beep"</span><span class="o">;</span>
         <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
             <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
                 <span class="s">"name"</span><span class="o">,</span> <span class="s">"Test"</span><span class="o">,</span>
@@ -924,10 +2101,13 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bulk task started!"</span><span class="w">
+      </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bulk task started!"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"request_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"689af497d0d3c748923fcfc3"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Use this section if Joinup system has configured a Company group for your mobility platform</p>
+<aside class="notice">
+Use this section if Joinup system has configured a Company group for your mobility platform
+</aside>
 
 <table><thead>
 <tr>
@@ -970,8 +2150,8 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 <aside class="notice">
   It is possible not to send company_name and company_cif. Use this case only if all cost centers are shared by all companies
 </aside>
-<h2 id='4-3-configuration-company'>4.3 Configuration Company</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.joinupbackend/api/company/cost-centers/"</span> <span class="se">\</span>
-  <span class="nt">-H</span> <span class="s2">"Authorization: beep-beep-beep-beep-beep"</span> <span class="se">\</span>
+<h3 id='4-2-3-configuration-single-company'>4.2.3 Configuration Single Company</h3><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.joinupbackend/api/company/cost-centers/"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: JWT beep-beep-beep-beep-beep"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
   <span class="nt">-X</span> POST <span class="se">\</span>
   <span class="nt">-d</span> <span class="s1">'[
@@ -994,7 +2174,7 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 </code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
 
 <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'beep-beep-beep-beep-beep'</span><span class="p">,</span>
+    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'JWT beep-beep-beep-beep-beep'</span><span class="p">,</span>
     <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
 <span class="p">}</span>
 
@@ -1031,7 +2211,7 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
         <span class="nc">String</span> <span class="n">url</span> <span class="o">=</span> <span class="s">"https://api.joinupbackend/api/company/cost-centers/"</span><span class="o">;</span>
-        <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="s">"beep-beep-beep-beep-beep"</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="s">"JWT beep-beep-beep-beep-beep"</span><span class="o">;</span>
         <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="nc">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
             <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span>
                 <span class="s">"name"</span><span class="o">,</span> <span class="s">"Test"</span><span class="o">,</span>
@@ -1074,7 +2254,9 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
       </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bulk task started!"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Use this section if Joinup system has configured a single company for your mobility platform</p>
+<aside class="notice">
+Use this section if Joinup system has configured a single company for your mobility platform
+</aside>
 
 <table><thead>
 <tr>
@@ -1099,7 +2281,7 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 <td>Cost center. Used to search for an cost center when operation is updated or offboarding. This field can not be updated (via API)</td>
 </tr>
 </tbody></table>
-<h2 id='4-4-status-codes'>4.4 Status codes</h2>
+<h3 id='4-2-4-status-codes'>4.2.4 Status codes</h3>
 <table><thead>
 <tr>
 <th>Status Code</th>
@@ -1115,12 +2297,147 @@ You must replace <code>beep-beep-beep-beep-beep</code> with your token.
 <td>Bad Request indicates that the server would not process the request due to something the server considered to be a client error. The errors are indicated in the response.</td>
 </tr>
 <tr>
+<td>401</td>
+<td>Unauthorized indicates the client must authenticate to access the resource.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden means the client is authenticated but does not have permission to access the resource.</td>
+</tr>
+<tr>
 <td>413</td>
 <td>Content Too Large indicates that the request entity was larger than limits defined by server: 50 cost centers.</td>
 </tr>
 <tr>
 <td>429</td>
 <td>Too Many Requests indicates the client has sent another request in less than 1 minute ago.</td>
+</tr>
+</tbody></table>
+<h2 id='4-3-get-report'>4.3 Get report</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.joinupbackend/api/company/cost-centers/check-request/689af497d0d3c748923fcfc3/"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: JWT beep-beep-beep-beep-beep"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'Authorization'</span><span class="p">:</span> <span class="s">'JWT beep-beep-beep-beep-beep'</span><span class="p">,</span>
+    <span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="s">'https://api.joinupbackend/api/company/cost-centers/check-request/689af497d0d3c748923fcfc3/'</span><span class="p">,</span>
+    <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="highlight java tab-java"><code><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpClient</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpRequest</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.http.HttpResponse</span><span class="o">;</span>
+
+<span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newHttpClient</span><span class="o">();</span>
+
+<span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">uri</span><span class="o">(</span><span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"https://api.joinupbackend/api/company/cost-centers/check-request/689af497d0d3c748923fcfc3/"</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">GET</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Authorization"</span><span class="o">,</span> <span class="s">"JWT beep-beep-beep-beep-beep"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">());</span>
+
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pending"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-08-12T08:00:23.519000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"689af497d0d3c748923fcfc3"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Or when the task is finished:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"finished"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-08-12T08:00:23.519000"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"company_created"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"NAME_OR_CIF1"</span><span class="p">,</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"offboarding"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"COST_CENTER_10"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"COST_CENTER_11"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ERROR MESSAGE"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"onboarding"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"COST_CENTER_12"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"COST_CENTER_13"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"COST_CENTER_14"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"COST_CENTER_15"</span><span class="p">,</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"updated"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"COST_CENTER_5"</span><span class="p">,</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"689af497d0d3c748923fcfc3"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='3-3-1-http-request'>3.3.1 HTTP Request</h3>
+<p><code>GET https://api.joinupbackend/api/company/cost-centers/check-request/&lt;ID&gt;/</code></p>
+
+<p>This endpoint retrieves the report created after run manage cost centers. </p>
+
+<p>This endpoint can be called 1 time per minute.</p>
+
+<p>The id used will be the request_id returned in the request to manage cost centers</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>status</td>
+<td>String</td>
+<td>pending: Request is still being processed, finished: request has been completed</td>
+</tr>
+<tr>
+<td>created</td>
+<td>String  (datetime in ISO 8601 format, UTC timezone)</td>
+<td>Date when the request was made</td>
+</tr>
+<tr>
+<td>id</td>
+<td>String</td>
+<td>Identifier of the request</td>
+</tr>
+<tr>
+<td>company_created</td>
+<td>List[str]</td>
+<td>Only for company group administrators. company names (or CIFs) list created in the request</td>
+</tr>
+<tr>
+<td>offboarding</td>
+<td>Object</td>
+<td>Report of offboarding cost centers</td>
+</tr>
+<tr>
+<td>onboarding</td>
+<td>Object</td>
+<td>Report of onboarding cost centers</td>
+</tr>
+<tr>
+<td>updated</td>
+<td>Object</td>
+<td>Report of updated cost centers</td>
 </tr>
 </tbody></table>
 </div>
