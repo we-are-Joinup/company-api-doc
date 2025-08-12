@@ -708,6 +708,16 @@ onboarding | Object | Report of onboarding employees
 updated | Object | Report of updated employees
 
 
+### 3.3.2 Status codes
+
+Status Code | Meaning
+---------- | -------
+200 | OK. The report is returned
+401 | Unauthorized indicates the client must authenticate to access the resource.
+403 | Forbidden means the client is authenticated but does not have permission to access the resource.
+404 | Not Found. There is not any request with this ID
+
+
 ## 3.4 Hook during signup process
 
 <aside class="notice">

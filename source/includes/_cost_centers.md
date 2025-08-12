@@ -2,7 +2,7 @@
 
 ## 4.1 List Cost centers
 
-### 3.1.1 HTTP Request
+### 4.1.1 HTTP Request
 
 `GET https://api.joinupbackend/api/company/cost-centers/`
 
@@ -10,7 +10,7 @@ This endpoint lists cost centers in a paginated format.
 
 This endpoint can be called 1 time per second.
 
-### 3.1.2 Case Company Group
+### 4.1.2 Case Company Group
 
 ```shell
 curl "https://localhost:8000/api/company/cost-centers/" \
@@ -71,7 +71,7 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.o
 Use this section if Joinup system has configured a Company group for your mobility platform
 </aside>
 
-#### 3.1.2.1 Query Parameters
+#### 4.1.2.1 Query Parameters
 
 Parameter   |  Type       | Required    | Description
 ----------- | ----------- | ---------   | ------------
@@ -84,7 +84,7 @@ company_name | String     | No          | Filters cost centers whose company nam
 company_cif  | String     | No          | Filters cost centers whose company CIF contains the specified value. Only if your company group does not share the cost centers.
 
 
-#### 3.1.2.2 Attributes response
+#### 4.1.2.2 Attributes response
 
 
 Attribute        | Type    | Description
@@ -97,7 +97,7 @@ name             | String  | Name of the cost center
   company_name and company_cif are not returned cost centers are shared by all companies.
 </aside>
 
-### 3.1.3 Case Single Company
+### 4.1.3 Case Single Company
 
 ```shell
 curl "https://localhost:8000/api/company/cost-centers/" \
@@ -157,7 +157,7 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.o
 Use this section if Joinup system has configured a single company for your mobility platform
 </aside>
 
-#### 3.1.3.1 Query Parameters
+#### 4.1.3.1 Query Parameters
 
 Parameter   |  Type       | Required    | Description
 ----------- | ----------- | ---------   | ------------
@@ -167,7 +167,7 @@ ordering    |  String     |  No         | Default id. Specifies the sorting orde
 id          |  Integer    |  No         | Filters the results by the specified cost center ID
 name        |  String     |  No         | Filters cost centers by their name. Accepts true or false
 
-#### 3.1.3.2 Attributes response
+#### 4.1.3.2 Attributes response
 
 
 Attribute        | Type    | Description
@@ -175,7 +175,7 @@ Attribute        | Type    | Description
 id               | Integer | Unique identifier of the cost center
 name             | String  | Name of the cost center
 
-### 3.1.4 Status codes
+### 4.1.4 Status codes
 
 Status Code | Meaning
 ---------- | -------
@@ -578,7 +578,7 @@ HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.o
 ```
 
 
-### 3.3.1 HTTP Request
+### 4.3.1 HTTP Request
 
 `GET https://api.joinupbackend/api/company/cost-centers/check-request/<ID>/`
 
@@ -598,3 +598,13 @@ company_created | List[str] | Only for company group administrators. company nam
 offboarding | Object | Report of offboarding cost centers
 onboarding | Object | Report of onboarding cost centers
 updated | Object | Report of updated cost centers
+
+
+### 4.3.2 Status codes
+
+Status Code | Meaning
+---------- | -------
+200 | OK. The report is returned
+401 | Unauthorized indicates the client must authenticate to access the resource.
+403 | Forbidden means the client is authenticated but does not have permission to access the resource.
+404 | Not Found. There is not any request with this ID
